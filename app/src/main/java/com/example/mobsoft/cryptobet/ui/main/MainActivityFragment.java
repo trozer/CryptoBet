@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 
 import com.example.mobsoft.cryptobet.R;
 
+import javax.inject.Inject;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements MainScreen {
+
+    @Inject
+    MainPresenter mainPresenter;
 
     public MainActivityFragment() {
     }
@@ -20,5 +25,20 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+
+    @Override
+    public void showCryptoCurrencies() {
+
+    }
+
+    @Override
+    public void showNetworkError(String errorMsg) {
+
+    }
+
+    @Override
+    public void updateScore() {
+
     }
 }

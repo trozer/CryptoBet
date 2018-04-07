@@ -5,7 +5,7 @@ import android.app.Activity;
 
 import com.example.mobsoft.cryptobet.R;
 
-public class MainActivity extends Activity implements MainScreen {
+public class MainActivity extends Activity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,13 +13,5 @@ public class MainActivity extends Activity implements MainScreen {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    public void showCryptoCurrencies() {
 
-    }
-
-    @Override
-    public void showNetworkError(String errorMsg) {
-
-    }
 }
