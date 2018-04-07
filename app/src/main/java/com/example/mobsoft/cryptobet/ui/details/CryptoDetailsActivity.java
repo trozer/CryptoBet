@@ -5,7 +5,7 @@ import android.app.Activity;
 
 import com.example.mobsoft.cryptobet.R;
 
-public class CryptoDetails extends Activity {
+public class CryptoDetailsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

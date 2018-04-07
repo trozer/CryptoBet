@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>>
         <activity
-            android:name=".ui.details.CryptoDetails"
+            android:name=".ui.details.CryptoDetailsActivity"
             android:label="@string/title_activity_crypto_details" />
         <activity
             android:name=".ui.about.AboutActivity"
