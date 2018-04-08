@@ -1,6 +1,7 @@
 package com.example.mobsoft.cryptobet;
 
 import com.example.mobsoft.cryptobet.interactor.InteractorModule;
+import com.example.mobsoft.cryptobet.interactor.cryptos.BidInteractor;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
 import com.example.mobsoft.cryptobet.ui.UIModule;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
@@ -19,4 +20,6 @@ public interface CryptobetApplicationComponent {
     void inject(CryptoDetailsActivity cryptoDetailsActivity);
 
     void inject(CryptosInteractor cryptosInteractor);
+
+    void inject(BidInteractor bidInteractor);
 }
