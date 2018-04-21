@@ -1,8 +1,10 @@
 package com.example.mobsoft.cryptobet.model;
 
+import com.orm.SugarRecord;
+
 import java.util.Date;
 
-public class Bid {
+public class Bid extends SugarRecord<Bid>{
     private Currency currency;
     private float price;
     private Date deadLine;

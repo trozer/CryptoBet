@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.model.Currency;
+import com.orm.SugarApp;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class MainActivityFragment extends Fragment implements MainScreen {
     @Override
     public void showCryptoCurrency(Currency currency) {
         Log.i("curr", currency.toString());
+        currency.save();
     }
 
     @Override

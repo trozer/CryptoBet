@@ -1,8 +1,10 @@
 package com.example.mobsoft.cryptobet.model;
 
+import com.orm.SugarRecord;
+
 import java.util.List;
 
-public class PlayerInfo {
+public class PlayerInfo extends SugarRecord<PlayerInfo>{
     private int score;
     private List<Bid> bids;
 

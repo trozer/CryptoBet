@@ -4,13 +4,14 @@ import java.util.Objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
 
 
-public class Currency   {
+public class Currency extends SugarRecord<Currency>{
 
     @Expose
     @SerializedName("id")
-    private String id = null;
+    private String currencyId = null;
 
     @Expose
     @SerializedName("name")
@@ -64,15 +65,15 @@ public class Currency   {
     @SerializedName("last_updated")
     private Integer lastUpdated = null;
 
-
+    public Currency(){}
 
     /**
      **/
-    public String getId() {
-        return id;
+    public String getCurrencyId() {
+        return currencyId;
     }
     public void setId(String id) {
-        this.id = id;
+        this.currencyId = id;
     }
 
 
@@ -216,7 +217,7 @@ public class Currency   {
             return false;
         }
         Currency currency = (Currency) o;
-        return Objects.equals(id, currency.id) &&
+        return Objects.equals(currencyId, currency.currencyId) &&
                 Objects.equals(name, currency.name) &&
                 Objects.equals(symbol, currency.symbol) &&
                 Objects.equals(rank, currency.rank) &&
@@ -234,7 +235,7 @@ public class Currency   {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, symbol, rank, priceUsd, priceBtc, _24hVolumeUsd, marketCapUsd, availableSupply, totalSupply, percentChange1h, percentChange24h, percentChange7d, lastUpdated);
+        return Objects.hash(currencyId, name, symbol, rank, priceUsd, priceBtc, _24hVolumeUsd, marketCapUsd, availableSupply, totalSupply, percentChange1h, percentChange24h, percentChange7d, lastUpdated);
     }
 
     @Override
@@ -242,7 +243,7 @@ public class Currency   {
         StringBuilder sb = new StringBuilder();
         sb.append("class Currency {\n");
 
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    id: ").append(toIndentedString(currencyId)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
         sb.append("    rank: ").append(toIndentedString(rank)).append("\n");

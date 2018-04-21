@@ -1,5 +1,8 @@
 package com.example.mobsoft.cryptobet.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -14,7 +17,7 @@ public class NetworkModule {
     @Singleton
     public Retrofit.Builder provideRetrofit() {
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()));
 
     }
 
