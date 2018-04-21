@@ -8,6 +8,7 @@ import com.example.mobsoft.cryptobet.ui.UIModule;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
 import com.example.mobsoft.cryptobet.ui.main.MainActivity;
 import com.example.mobsoft.cryptobet.ui.main.MainActivityFragment;
+import com.example.mobsoft.cryptobet.ui.main.MainPresenter;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,6 @@ public interface CryptobetApplicationComponent {
     void inject(CryptosInteractor cryptosInteractor);
 
     void inject(BidInteractor bidInteractor);
+
+    void inject(MainPresenter mainPresenter);
 }

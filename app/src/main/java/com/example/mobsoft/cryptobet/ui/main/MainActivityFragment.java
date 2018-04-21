@@ -2,11 +2,16 @@ package com.example.mobsoft.cryptobet.ui.main;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
+import com.example.mobsoft.cryptobet.model.Currency;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,6 +24,7 @@ public class MainActivityFragment extends Fragment implements MainScreen {
     MainPresenter mainPresenter;
 
     public MainActivityFragment() {
+        CryptobetApplication.injector.inject(this);
     }
 
     @Override
@@ -28,8 +34,10 @@ public class MainActivityFragment extends Fragment implements MainScreen {
     }
 
     @Override
-    public void showCryptoCurrencies() {
-
+    public void showCryptoCurrencies(List<Currency> currencies) {
+        Log.i("curr",currencies.get(0).toString());
+        mainPresenter.setScore();
+        mainPresenter.refreshCurrencies(0,100,"EUR");
     }
 
     @Override
