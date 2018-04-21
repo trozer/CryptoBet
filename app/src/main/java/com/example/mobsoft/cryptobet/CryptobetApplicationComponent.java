@@ -3,6 +3,7 @@ package com.example.mobsoft.cryptobet;
 import com.example.mobsoft.cryptobet.interactor.InteractorModule;
 import com.example.mobsoft.cryptobet.interactor.cryptos.BidInteractor;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
+import com.example.mobsoft.cryptobet.network.NetworkModule;
 import com.example.mobsoft.cryptobet.ui.UIModule;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
 import com.example.mobsoft.cryptobet.ui.main.MainActivity;
@@ -13,7 +14,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {UIModule.class, InteractorModule.class})
+@Component(modules = {UIModule.class, NetworkModule.class, InteractorModule.class})
 public interface CryptobetApplicationComponent {
     void inject(MainActivityFragment mainActivityFragment);
 

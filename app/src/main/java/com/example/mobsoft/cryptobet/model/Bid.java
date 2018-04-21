@@ -3,16 +3,16 @@ package com.example.mobsoft.cryptobet.model;
 import java.util.Date;
 
 public class Bid {
-    private CryptoCurrency cryptoCurrency;
+    private Currency currency;
     private float price;
     private Date deadLine;
 
-    public CryptoCurrency getCryptoCurrency() {
-        return cryptoCurrency;
+    public Currency getCurrency() {
+        return currency;
     }
 
-    public void setCryptoCurrency(CryptoCurrency cryptoCurrency) {
-        this.cryptoCurrency = cryptoCurrency;
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     public float getPrice() {
