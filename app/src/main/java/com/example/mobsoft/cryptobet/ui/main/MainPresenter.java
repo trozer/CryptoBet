@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.di.Network;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
+import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptoEvent;
 import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptosEvent;
 import com.example.mobsoft.cryptobet.ui.Presenter;
 
@@ -43,7 +44,7 @@ public class MainPresenter extends Presenter<MainScreen> {
     };
 
     public void setScore(){
-        Log.i("test", "jani");
+
     };
 
     public void refreshCurrencies(final Integer start, final Integer limit, final String convert){
@@ -51,6 +52,15 @@ public class MainPresenter extends Presenter<MainScreen> {
             @Override
             public void run() {
                 cryptosInteractor.getCryptos(start, limit, convert);
+            }
+        });
+    }
+
+    public void getCryptoCurrencyByName(final String name, final String convert){
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                cryptosInteractor.getCryptoCurrencyByName(name, convert);
             }
         });
     }
@@ -65,6 +75,20 @@ public class MainPresenter extends Presenter<MainScreen> {
         } else {
             if (screen != null) {
                 screen.showCryptoCurrencies(event.getCryptos());
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(final GetCryptoEvent event){
+        if (event.getThrowable() != null) {
+            event.getThrowable().printStackTrace();
+            if (screen != null) {
+                screen.showNetworkError(event.getThrowable().getMessage());
+            }
+        } else {
+            if (screen != null) {
+                screen.showCryptoCurrency(event.getCrypto());
             }
         }
     }

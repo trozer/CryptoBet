@@ -1,6 +1,7 @@
 package com.example.mobsoft.cryptobet.interactor.cryptos;
 
 import com.example.mobsoft.cryptobet.CryptobetApplication;
+import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptoEvent;
 import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptosEvent;
 import com.example.mobsoft.cryptobet.model.Currency;
 import com.example.mobsoft.cryptobet.network.CryptoCurrenciesInfoApi;
@@ -61,18 +62,16 @@ public class CryptosInteractor {
     }
 
     public void getCryptoCurrencyByName(String name, String convert){
-        GetCryptosEvent event = new GetCryptosEvent();
+        GetCryptoEvent event = new GetCryptoEvent();
         try {
-            Call<Currency> cryptosQueryCall = cryptoCurrenciesInfoApi.tickerSpecific(name, convert);
+            Call<List<Currency>> cryptosQueryCall = cryptoCurrenciesInfoApi.tickerSpecific(name, convert);
 
-            Response<Currency> response = cryptosQueryCall.execute();
+            Response<List<Currency>> response = cryptosQueryCall.execute();
             if(response.code() != 200){
                 throw new Exception("Result code is not 200");
             }
             event.setCode(response.code());
-            List<Currency> currencyList = new ArrayList<Currency>();
-            currencyList.add(response.body());
-            event.setCryptos(currencyList);
+            event.setCrypto(response.body().get(0));
             EventBus.getDefault().post(event);
         }catch (Exception e){
             event.setThrowable(e);

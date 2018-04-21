@@ -1,20 +1,19 @@
 package com.example.mobsoft.cryptobet.interactor.cryptos.event;
 
-
 import com.example.mobsoft.cryptobet.model.Currency;
 
 import java.util.List;
 
-public class GetCryptosEvent {
+public class GetCryptoEvent {
     private int code;
-    private List<Currency> cryptos;
+    private Currency crypto;
     private Throwable throwable;
 
-    public GetCryptosEvent(){}
+    public GetCryptoEvent(){}
 
-    public GetCryptosEvent(int code, List<Currency> cryptos, Throwable throwable){
+    public GetCryptoEvent(int code, Currency crypto, Throwable throwable){
         this.code = code;
-        this.cryptos = cryptos;
+        this.crypto = crypto;
         this.throwable = throwable;
     }
 
@@ -27,12 +26,12 @@ public class GetCryptosEvent {
         this.code = code;
     }
 
-    public List<Currency> getCryptos() {
-        return cryptos;
+    public Currency getCrypto() {
+        return crypto;
     }
 
-    public void setCryptos(List<Currency> cryptos) {
-        this.cryptos= cryptos;
+    public void setCrypto(Currency crypto) {
+        this.crypto = crypto;
     }
 
     public Throwable getThrowable() {

@@ -38,7 +38,7 @@ public interface  CryptoCurrenciesInfoApi {
      */
 
     @GET("v1/ticker/{name}")
-    Call<Currency> tickerSpecific(
+    Call<List<Currency>> tickerSpecific(
             @Path("name") String name, @Query("convert") String convert
     );
 

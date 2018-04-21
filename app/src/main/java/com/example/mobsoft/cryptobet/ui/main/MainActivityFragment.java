@@ -1,6 +1,7 @@
 package com.example.mobsoft.cryptobet.ui.main;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,24 +21,46 @@ import javax.inject.Inject;
  */
 public class MainActivityFragment extends Fragment implements MainScreen {
 
+
     @Inject
     MainPresenter mainPresenter;
 
-    public MainActivityFragment() {
+
+    public MainActivityFragment(){
         CryptobetApplication.injector.inject(this);
+    }
+
+    @Override
+    public void onAttach(final Context context){
+        super.onAttach(context);
+        mainPresenter.attachScreen(this);
+
+    }
+
+    @Override
+    public void onDetach() {
+        mainPresenter.detachScreen();
+        super.onDetach();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mainPresenter.setScore();
+        mainPresenter.refreshCurrencies(0,100,"EUR");
+        mainPresenter.getCryptoCurrencyByName("ethereum", "EUR");
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
     @Override
     public void showCryptoCurrencies(List<Currency> currencies) {
-        Log.i("curr",currencies.get(0).toString());
-        mainPresenter.setScore();
-        mainPresenter.refreshCurrencies(0,100,"EUR");
+        for(Currency i : currencies)
+            Log.i("curr",i.toString());
+    }
+
+    @Override
+    public void showCryptoCurrency(Currency currency) {
+        Log.i("curr", currency.toString());
     }
 
     @Override
