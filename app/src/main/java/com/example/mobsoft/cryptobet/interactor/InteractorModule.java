@@ -1,6 +1,7 @@
 package com.example.mobsoft.cryptobet.interactor;
 
 import com.example.mobsoft.cryptobet.interactor.cryptos.BidInteractor;
+import com.example.mobsoft.cryptobet.interactor.cryptos.CryptoDBSourceInteractor;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
 
 import dagger.Module;
@@ -17,4 +18,7 @@ public class InteractorModule {
     public BidInteractor provideBidInteractor() {
         return new BidInteractor();
     }
+
+    @Provides
+    public CryptoDBSourceInteractor provideCryptoDBSourceInteractor() { return new CryptoDBSourceInteractor(); }
 }
