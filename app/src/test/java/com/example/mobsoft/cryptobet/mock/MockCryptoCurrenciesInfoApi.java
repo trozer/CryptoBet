@@ -1,6 +1,7 @@
 package com.example.mobsoft.cryptobet.mock;
 
 import com.example.mobsoft.cryptobet.model.Currency;
+import com.example.mobsoft.cryptobet.network.CryptoCurrenciesInfoApi;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +15,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public class MockCryptoCurrenciesInfoApi {
+public class MockCryptoCurrenciesInfoApi implements CryptoCurrenciesInfoApi {
 
-    Call<List<Currency>> ticker(
+    @Override
+    public Call<List<Currency>> ticker(
             @Query("start") Integer start, @Query("limit") Integer limit, @Query("convert") String convert
     ){
         final List<Currency> currenciesResult = new ArrayList<Currency>();
@@ -79,7 +81,8 @@ public class MockCryptoCurrenciesInfoApi {
         return call;
     }
 
-    Call<List<Currency>> tickerSpecific(
+    @Override
+    public Call<List<Currency>> tickerSpecific(
             @Path("name") String name, @Query("convert") String convert
     ){
         final List<Currency> currenciesResult = new ArrayList<Currency>();
