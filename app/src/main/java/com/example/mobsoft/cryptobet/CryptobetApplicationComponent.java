@@ -1,5 +1,6 @@
 package com.example.mobsoft.cryptobet;
 
+import com.example.mobsoft.cryptobet.db.DatabaseModule;
 import com.example.mobsoft.cryptobet.interactor.InteractorModule;
 import com.example.mobsoft.cryptobet.interactor.cryptos.BidInteractor;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
@@ -15,7 +16,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {UIModule.class, NetworkModule.class, InteractorModule.class})
+@Component(modules = {UIModule.class, NetworkModule.class, InteractorModule.class, DatabaseModule.class})
 public interface CryptobetApplicationComponent {
     void inject(MainActivityFragment mainActivityFragment);
 

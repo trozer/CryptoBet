@@ -1,11 +1,11 @@
-package com.example.mobsoft.cryptobet.interactor.cryptos;
+package com.example.mobsoft.cryptobet.db;
 
 import com.example.mobsoft.cryptobet.model.Bid;
 import com.example.mobsoft.cryptobet.model.Currency;
 
 import java.util.List;
 
-public class CryptoDBSourceInteractor {
+public class CryptoDBSourceImpl implements CryptoDBSource{
 
     public void insertBid(Bid bid){
         bid.save();
@@ -31,8 +31,4 @@ public class CryptoDBSourceInteractor {
         }
         return null;
     }
-
-
-
-
 }
