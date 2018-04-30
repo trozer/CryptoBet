@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobsoft.cryptobet.R;
@@ -48,6 +47,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
         holder.tvVolChange.setText(currency.getPercentChange24h().toString() + " %");
         holder.tvPrice.setText(currency.getPriceUsd().toString());
         holder.tvBet.setText("X");
+        holder.currency = currency;
     }
 
     @Override
@@ -61,6 +61,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
         public TextView tvPrice;
         public TextView tvVolChange;
         public TextView tvBet;
+        public Currency currency;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,9 +73,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Log.i("a", tvName.getText().toString());
                     Intent intent = new Intent(context, CryptoDetailsActivity.class);
-                    intent.putExtra("CURRENCY_NAME", tvName.getText().toString());
+                    intent.putExtra("Currency", currency);
                     mainActivityFragment.startActivity(intent);
                 }
             });

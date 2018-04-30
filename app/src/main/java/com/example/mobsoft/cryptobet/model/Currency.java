@@ -1,5 +1,6 @@
 package com.example.mobsoft.cryptobet.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import com.google.gson.annotations.Expose;
@@ -7,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
 
-public class Currency extends SugarRecord<Currency>{
+public class Currency extends SugarRecord<Currency> implements Serializable{
 
     @Expose
     @SerializedName("id")
