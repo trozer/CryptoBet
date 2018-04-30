@@ -1,18 +1,23 @@
 package com.example.mobsoft.cryptobet.ui.main;
 
-import android.app.Fragment;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.model.Currency;
-import com.orm.SugarApp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,14 +25,19 @@ import javax.inject.Inject;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements MainScreen {
-
+public class MainActivityFragment extends Fragment implements MainScreen{
 
     @Inject
     MainPresenter mainPresenter;
+    private EditText etCrypto;
+    private RecyclerView recyclerViewCryptos;
+    private SwipeRefreshLayout swipeRefreshLayoutCryptos;
+    private TextView tvEmpty;
+    private List<Currency> currencyList;
+    private MainAdapter mainAdapter;
+    private String currency = "";
 
-
-    public MainActivityFragment(){
+    public MainActivityFragment() {
         CryptobetApplication.injector.inject(this);
     }
 
@@ -35,11 +45,10 @@ public class MainActivityFragment extends Fragment implements MainScreen {
     public void onAttach(final Context context){
         super.onAttach(context);
         mainPresenter.attachScreen(this);
-
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach(){
         mainPresenter.detachScreen();
         super.onDetach();
     }
@@ -47,27 +56,67 @@ public class MainActivityFragment extends Fragment implements MainScreen {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainPresenter.setScore();
-        mainPresenter.refreshCurrencies(0,100,"EUR");
-        mainPresenter.getCryptoCurrencyByName("ethereum", "EUR");
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        etCrypto = (EditText) view.findViewById(R.id.etCrypto);
+        etCrypto.setText(currency);
+        tvEmpty = (view.findViewById(R.id.tvEmpty));
+        recyclerViewCryptos = (RecyclerView) view.findViewById(R.id.recyclerViewCryptos);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewCryptos.setLayoutManager(llm);
+
+        currencyList = new ArrayList<>();
+        mainAdapter = new MainAdapter(getContext(), currencyList);
+        recyclerViewCryptos.setAdapter(mainAdapter);
+
+        swipeRefreshLayoutCryptos = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayoutCryptos);
+
+        swipeRefreshLayoutCryptos.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currency = etCrypto.getText().toString();
+                mainPresenter.refreshCurrencies(0,100,"USD");
+            }
+        });
+        return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mainPresenter.refreshCurrencies(0,100,"USD");
     }
 
     @Override
     public void showCryptoCurrencies(List<Currency> currencies) {
-        for(Currency i : currencies)
-            Log.i("curr",i.toString());
+        if(swipeRefreshLayoutCryptos != null){
+            swipeRefreshLayoutCryptos.setRefreshing(false);
+        }
+
+        currencyList.clear();
+        currencyList.addAll(currencies);
+        mainAdapter.notifyDataSetChanged();
+
+        if(currencyList.isEmpty()){
+            recyclerViewCryptos.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }else{
+            recyclerViewCryptos.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void showCryptoCurrency(Currency currency) {
-        Log.i("curr", currency.toString());
-        currency.save();
+
     }
 
     @Override
     public void showNetworkError(String errorMsg) {
-
+        if(swipeRefreshLayoutCryptos != null){
+            swipeRefreshLayoutCryptos.setRefreshing(false);
+        }
+        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
     }
 
     @Override
