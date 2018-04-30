@@ -4,6 +4,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 tools:context=".ui.main.MainActivityFragment"
                 tools:showIn="@layout/activity_main">
 
@@ -26,6 +28,13 @@
         android:layout_weight="1"
         android:background="#FFFFFF">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/card_currency" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewCryptos"
             android:layout_width="match_parent"
@@ -38,6 +47,7 @@
             android:layout_below="@id/recyclerViewCryptos"
             android:gravity="center"
             android:text="No data"/>
+        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
