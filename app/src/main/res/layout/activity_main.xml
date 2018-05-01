@@ -25,7 +25,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_margin="10dp"
-                android:translationX="20dp"
+                android:translationX="50dp"
                 android:text="531 p"/>
             <TextView
                 android:layout_width="100dp"
@@ -43,12 +43,5 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

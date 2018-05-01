@@ -37,7 +37,7 @@ public class MockCryptoDBSource implements CryptoDBSource{
     @Override
     public Bid getBidBySpecificCurrency(Currency currency) {
         for(Bid bid : bids){
-            if(bid.getCurrency().equals(currency))
+            if(bid.getCurrencyName().equals(currency.getName()))
                 return bid;
         }
         return null;

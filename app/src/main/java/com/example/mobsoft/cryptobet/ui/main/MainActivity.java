@@ -1,5 +1,6 @@
 package com.example.mobsoft.cryptobet.ui.main;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.mobsoft.cryptobet.R;
+import com.example.mobsoft.cryptobet.ui.about.AboutActivity;
+import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
 
 import javax.inject.Inject;
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24px);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final MainActivity mainActivity = this;
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -43,18 +47,11 @@ public class MainActivity extends AppCompatActivity {
                         // Handle navigation view item clicks here.
                         int id = menuItem.getItemId();
 
-                        if (id == R.id.nav_camera) {
-                            // Handle the camera action
-                        } else if (id == R.id.nav_gallery) {
+                        if (id == R.id.nav_about) {
+                            Intent intent = new Intent(mainActivity, AboutActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_cryptolist) {
                             Log.i("asd", "lainka");
-                        } else if (id == R.id.nav_slideshow) {
-
-                        } else if (id == R.id.nav_manage) {
-
-                        } else if (id == R.id.nav_share) {
-
-                        } else if (id == R.id.nav_send) {
-
                         }
 
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -65,14 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         scoreText = (TextView) findViewById(R.id.toolbarScore);
         betText = (TextView) findViewById(R.id.toolbarBet);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -81,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         int stored_score = mPrefs.getInt("score", 0);
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("score", stored_score + score).commit();
-        scoreText.setText(Integer.toString(score) + " p");
+        scoreText.setText(Integer.toString(stored_score) + " p");
     }
 
     public void setBetText(int betNum){
