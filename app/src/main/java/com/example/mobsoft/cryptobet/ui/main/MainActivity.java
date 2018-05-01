@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(mainActivity, AboutActivity.class);
                             startActivity(intent);
                         } else if (id == R.id.nav_cryptolist) {
-                            Log.i("asd", "lainka");
+
                         }
 
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -118,6 +118,11 @@ public class MainActivityFragment extends Fragment implements MainScreen{
         mainPresenter.refreshCurrencies(0,100,"USD");
     }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
 
     @Override
     public void showCryptoCurrencies(List<Currency> currencies) {

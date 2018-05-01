@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -38,7 +39,9 @@ public class MainPresenter extends Presenter<MainScreen> {
     public void attachScreen(MainScreen screen) {
         super.attachScreen(screen);
         CryptobetApplication.injector.inject(this);
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -81,6 +84,9 @@ public class MainPresenter extends Presenter<MainScreen> {
                 if(currency.getLastUpdated() > bid.getDeadLine()){
                     int score = (int)(Double.valueOf(bid.getTimeMultiplier()) *
                             Double.valueOf(bid.getPrice()) / Double.valueOf(Math.abs(bid.getPrice() - currency.getPriceUsd())));
+                    int deadLineDiff = ((int)((bid.getDeadLine()) - (new Date().getTime()/1000)))/100000;
+                    if(deadLineDiff > 10)
+                        score = 0;
                     addScore += score;
                     cryptoDBSource.deleteBid(bid);
                 }
