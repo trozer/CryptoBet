@@ -7,6 +7,8 @@ import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
 import com.example.mobsoft.cryptobet.network.NetworkModule;
 import com.example.mobsoft.cryptobet.ui.UIModule;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
+import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsPresenter;
+import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsScreen;
 import com.example.mobsoft.cryptobet.ui.main.MainActivityFragment;
 import com.example.mobsoft.cryptobet.ui.main.MainPresenter;
 
@@ -26,4 +28,6 @@ public interface CryptobetApplicationComponent {
     void inject(BidInteractor bidInteractor);
 
     void inject(MainPresenter mainPresenter);
+
+    void inject(CryptoDetailsPresenter CryptoDetailsPresenter);
 }

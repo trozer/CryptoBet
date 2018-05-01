@@ -26,7 +26,7 @@ public class CryptoDBSourceImpl implements CryptoDBSource{
     public Bid getBidBySpecificCurrency(Currency currency){
         List<Bid> bids = getAllBids();
         for(Bid bid : bids){
-            if(bid.getCurrency().getName().equals(currency.getName()))
+            if(bid.getCurrencyName().equals(currency.getName()))
                 return bid;
         }
         return null;

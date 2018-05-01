@@ -253,7 +253,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout6"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="25dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -266,7 +266,7 @@
 
                     <TextView
                         android:id="@+id/tvActive"
-                        android:layout_width="83dp"
+                        android:layout_width="93dp"
                         android:layout_height="wrap_content"
                         android:text="Active: no"
                         android:textSize="18sp"
@@ -333,12 +333,14 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/showDatePickerDialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="showDatePickerDialog"
                             android:text="Set Date" />
 
                         <Button
+                            android:id="@+id/showTimePickerDialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="showTimePickerDialog"

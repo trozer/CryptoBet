@@ -16,8 +16,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplicationComponent;
@@ -30,17 +32,23 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDetailsScreen, TimePickerFragment.OnFragmentInteractionListener, DatePickerFragment.OnFragmentInteractionListener {
+public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDetailsScreen,
+        TimePickerFragment.OnFragmentInteractionListener, DatePickerFragment.OnFragmentInteractionListener {
 
     @Inject
     CryptoDetailsPresenter cryptoDetailsPresenter;
 
+    private Button saveButton ;
+    private Button showTimePickerDialog ;
+    private Button showDatePickerDialog;
+    private TextView tvActive;
+    private EditText etPrice;
     private Integer year = 2000;
     private Integer month = 1;
     private Integer day = 1;
     private Integer hour = 1;
     private Integer minute = 1;
-    private Integer betPrice = 10;
+    private Currency currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,7 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
 
         CryptobetApplication.injector.inject(this);
 
+        tvActive = (TextView) findViewById(R.id.tvActive);
         TextView currName = (TextView) findViewById(R.id.tvCurrName);
         TextView currPrice = (TextView) findViewById(R.id.tvCurrPrice);
         TextView curr24hVolume = (TextView) findViewById(R.id.tvCurr24hVolume);
@@ -75,12 +84,17 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         currPriceInBTC.setText(currency.getPriceBtc().toString());
         currRank.setText(currency.getRank().toString());
 
-        final TimePicker timePicker ;
-        Button saveButton = (Button) findViewById(R.id.saveButton);
+        etPrice = (EditText) findViewById(R.id.etPrice);
+
+        saveButton = (Button) findViewById(R.id.saveButton);
+        showTimePickerDialog = (Button) findViewById(R.id.showTimePickerDialog);
+        showDatePickerDialog = (Button) findViewById(R.id.showDatePickerDialog);
+        this.currency = currency;
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cryptoDetailsPresenter.saveBet(currency, getYear(),getMonth(),getDay(),getHour(),getMinute(), 10);
+                cryptoDetailsPresenter.saveBet(currency, getYear(),getMonth(),getDay(),getHour(),getMinute(), etPrice.getText().toString());
             }
         });
 
@@ -92,6 +106,38 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void failBet(String message){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show();
+    }
+
+    public void disableBetUI(){
+        saveButton.setEnabled(false);
+        etPrice.setEnabled(false);
+        showDatePickerDialog.setEnabled(false);
+        showTimePickerDialog.setEnabled(false);
+        setActiveText();
+    }
+
+    public void successfulBet(String currName, int year, int month, int dayOfMonth, int hour, int minute, int price){
+        StringBuffer strBuffer = new StringBuffer();
+        strBuffer.append("You succesfully made a bet: " + currName + " ");
+        strBuffer.append(year);
+        strBuffer.append("-");
+        strBuffer.append(month+1);
+        strBuffer.append("-");
+        strBuffer.append(day);
+        strBuffer.append(" ");
+        strBuffer.append(hour);
+        strBuffer.append(":");
+        strBuffer.append(minute);
+        strBuffer.append(" " + Integer.toString(price) + " USD");
+        Toast.makeText(this,strBuffer.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    public void setActiveText(){
+        tvActive.setText("Active: yes");
     }
 
     public int getYear(){
@@ -106,6 +152,10 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
     protected void onStart(){
         super.onStart();
         cryptoDetailsPresenter.attachScreen(this);
+        if(cryptoDetailsPresenter.checkActivity(currency)){
+            disableBetUI();
+            cryptoDetailsPresenter.setBetSelection(currency);
+        }
     }
 
     @Override
@@ -166,6 +216,27 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
 
     public void setMinute(Integer minute) {
         this.minute = minute;
+    }
+
+    public void setBetSelectState(int year, int month, int dayOfMonth, int hour, int minute, String price){
+        // Get TextView object which is used to show user pick date and time.
+        TextView textView = (TextView)findViewById(R.id.textViewShowDateTime);
+
+        StringBuffer strBuffer = new StringBuffer();
+        strBuffer.append("");
+        strBuffer.append(year);
+        strBuffer.append("-");
+        strBuffer.append(month+1);
+        strBuffer.append("-");
+        strBuffer.append(dayOfMonth);
+        strBuffer.append(" ");
+        strBuffer.append(hour);
+        strBuffer.append(":");
+        strBuffer.append(minute);
+        textView.setText(strBuffer.toString());
+        textView.setTextSize(16);
+
+        etPrice.setText(price);
     }
 
     public void showUserSelectDateTime()
