@@ -278,7 +278,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description: You can bet on this cryptocurrency here. You have to specify that when will be reach the given price the currency."
+                    android:text="Description: You can bet on this cryptocurrency here. You have to specify that when will be reach the given price the currency. (Deadline compared to GMT0)"
                     android:textSize="18sp"
                     tools:textColor="@color/colorPrimaryDark" />
 

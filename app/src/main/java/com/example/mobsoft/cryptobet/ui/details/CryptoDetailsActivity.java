@@ -120,7 +120,8 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         setActiveText();
     }
 
-    public void successfulBet(String currName, int year, int month, int dayOfMonth, int hour, int minute, int price){
+    @Override
+    public void successfulBet(String currName, int year, int month, int dayOfMonth, int hour, int minute, float price){
         StringBuffer strBuffer = new StringBuffer();
         strBuffer.append("You succesfully made a bet: " + currName + " ");
         strBuffer.append(year);
@@ -132,7 +133,7 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         strBuffer.append(hour);
         strBuffer.append(":");
         strBuffer.append(minute);
-        strBuffer.append(" " + Integer.toString(price) + " USD");
+        strBuffer.append(" " + Float.toString(price) + " USD");
         Toast.makeText(this,strBuffer.toString(), Toast.LENGTH_LONG).show();
     }
 

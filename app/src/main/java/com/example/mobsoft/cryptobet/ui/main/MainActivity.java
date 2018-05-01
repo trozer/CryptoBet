@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         int stored_score = mPrefs.getInt("score", 0);
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("score", stored_score + score).commit();
-        scoreText.setText(Integer.toString(score) + "p");
+        scoreText.setText(Integer.toString(score) + " p");
     }
 
     public void setBetText(int betNum){

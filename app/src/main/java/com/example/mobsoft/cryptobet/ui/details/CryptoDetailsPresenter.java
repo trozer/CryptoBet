@@ -46,10 +46,10 @@ public class CryptoDetailsPresenter extends Presenter<CryptoDetailsScreen> {
             Date date = calDate.getTime();
             if(date.before(new Date()))
                 throw new Exception("Given date time is before the current date");
-            int iPrice = Integer.parseInt(price);
+            float iPrice = Float.parseFloat(price);
             bid.setDeadLine((int) (date.getTime() / 1000));
             bid.setPrice(iPrice);
-            bid.setCurrentPrice(Math.round(currency.getPriceUsd()));
+            bid.setCurrentPrice(currency.getPriceUsd());
             bid.setCurrencyName(currency.getName());
             bid.setTimeMultiplier(((int)((date.getTime()/1000) - (new Date().getTime()/1000)))/100000);
 
@@ -68,7 +68,7 @@ public class CryptoDetailsPresenter extends Presenter<CryptoDetailsScreen> {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         screen.setBetSelectState(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
-                cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), Integer.toString(bid.getPrice()));
+                cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), Float.toString(bid.getPrice()));
     }
 
     public boolean checkActivity(Currency currency){
