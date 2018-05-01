@@ -171,7 +171,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     }
 
     @Override
-    public void updateScore() {
+    public void updateScore(int addScore) {
 
     }
 }

@@ -11,5 +11,5 @@ public interface MainScreen {
 
     void showNetworkError(String errorMsg);
 
-    void updateScore();
+    void updateScore(int addScore);
 }

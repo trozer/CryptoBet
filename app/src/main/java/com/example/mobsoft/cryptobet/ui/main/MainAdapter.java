@@ -10,21 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
+import com.example.mobsoft.cryptobet.db.CryptoDBSource;
+import com.example.mobsoft.cryptobet.model.Bid;
 import com.example.mobsoft.cryptobet.model.Currency;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
 
     private Context context;
     private List<Currency> currencyList;
+    private List<Bid> bidList;
     private MainActivityFragment mainActivityFragment;
+
+    @Inject
+    CryptoDBSource cryptoDBSource;
 
     public MainAdapter(Context context, List<Currency> currencyList){
         this.context = context;
         this.currencyList = currencyList;
+        CryptobetApplication.injector.inject(this);
     }
 
     public void setMainActivityFragment(MainActivityFragment fragment){
@@ -46,7 +56,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
         holder.tvName.setText(currency.getName());
         holder.tvVolChange.setText(currency.getPercentChange24h().toString() + " %");
         holder.tvPrice.setText(currency.getPriceUsd().toString());
-        holder.tvBet.setText("X");
+        if(cryptoDBSource.getBidBySpecificCurrency(currency) != null)
+            holder.tvBet.setText("X");
+        else
+            holder.tvBet.setText(" ");
         holder.currency = currency;
     }
 

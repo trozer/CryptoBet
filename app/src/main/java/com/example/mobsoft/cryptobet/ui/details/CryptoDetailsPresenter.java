@@ -51,7 +51,7 @@ public class CryptoDetailsPresenter extends Presenter<CryptoDetailsScreen> {
             bid.setPrice(iPrice);
             bid.setCurrentPrice(Math.round(currency.getPriceUsd()));
             bid.setCurrencyName(currency.getName());
-            bid.setTimeMultiplier((int)((date.getTime()/1000) - (new Date().getTime()/1000)));
+            bid.setTimeMultiplier(((int)((date.getTime()/1000) - (new Date().getTime()/1000)))/100000);
 
             cryptoDBSource.insertBid(bid);
             screen.successfulBet(currency.getName(), year,month,dayOfMonth,hour,minute,iPrice);

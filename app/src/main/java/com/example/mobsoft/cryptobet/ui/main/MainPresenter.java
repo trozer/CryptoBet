@@ -1,18 +1,23 @@
 package com.example.mobsoft.cryptobet.ui.main;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.mobsoft.cryptobet.CryptobetApplication;
+import com.example.mobsoft.cryptobet.db.CryptoDBSource;
 import com.example.mobsoft.cryptobet.di.Network;
 import com.example.mobsoft.cryptobet.interactor.cryptos.CryptosInteractor;
 import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptoEvent;
 import com.example.mobsoft.cryptobet.interactor.cryptos.event.GetCryptosEvent;
+import com.example.mobsoft.cryptobet.model.Bid;
+import com.example.mobsoft.cryptobet.model.Currency;
 import com.example.mobsoft.cryptobet.ui.Presenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -22,6 +27,9 @@ public class MainPresenter extends Presenter<MainScreen> {
     @Inject
     @Network
     Executor networkExecutor;
+
+    @Inject
+    CryptoDBSource cryptoDBSource;
 
     @Inject
     CryptosInteractor cryptosInteractor;
@@ -65,6 +73,22 @@ public class MainPresenter extends Presenter<MainScreen> {
         });
     }
 
+    public void evaluateBets(List<Currency> currencyList){
+        int addScore = 0;
+        for(Currency currency : currencyList){
+            if(cryptoDBSource.getBidBySpecificCurrency(currency) != null){
+                Bid bid = cryptoDBSource.getBidBySpecificCurrency(currency);
+                if(currency.getLastUpdated() < bid.getDeadLine()){
+                    int score = (int)(Double.valueOf(bid.getTimeMultiplier()) *
+                            Double.valueOf(bid.getPrice()) / Double.valueOf(Math.abs(bid.getPrice() - currency.getPriceUsd())));
+                    addScore += score;
+                }
+            }
+            screen.updateScore(addScore);
+        }
+    }
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetCryptosEvent event){
         if (event.getThrowable() != null) {
@@ -75,6 +99,7 @@ public class MainPresenter extends Presenter<MainScreen> {
         } else {
             if (screen != null) {
                 screen.showCryptoCurrencies(event.getCryptos());
+                evaluateBets(event.getCryptos());
             }
         }
     }
