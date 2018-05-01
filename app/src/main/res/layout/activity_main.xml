@@ -16,7 +16,28 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:id="@+id/toolbarScore"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:translationX="20dp"
+                android:text="531 p"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:id="@+id/toolbarBet"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:translationX="20dp"
+                android:text="12 bet"/>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 

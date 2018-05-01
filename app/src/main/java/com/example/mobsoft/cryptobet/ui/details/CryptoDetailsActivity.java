@@ -35,11 +35,12 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
     @Inject
     CryptoDetailsPresenter cryptoDetailsPresenter;
 
-    Integer year = new Integer(2000);
+    private Integer year = 2000;
     private Integer month = 1;
     private Integer day = 1;
     private Integer hour = 1;
     private Integer minute = 1;
+    private Integer betPrice = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,24 +80,7 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year = getYear();
-                int month = getMonth();
-                int day = getDay();
-                int hour = getHour();
-                int minute = getMinute();
-
-                Calendar calDate = Calendar.getInstance();
-                calDate.set(Calendar.YEAR, year);
-                calDate.set(Calendar.MONTH, month);
-                calDate.set(Calendar.DAY_OF_MONTH, day);
-                calDate.set(Calendar.HOUR_OF_DAY, hour);
-                calDate.set(Calendar.MINUTE, minute);
-                calDate.set(Calendar.SECOND, 0);
-
-                Date date = calDate.getTime();
-                int time = (int)(date.getTime()/1000);
-
-                Log.i("a", Integer.toString((int)(date.getTime()/1000)) + " test");
+                cryptoDetailsPresenter.saveBet(currency, getYear(),getMonth(),getDay(),getHour(),getMinute(), 10);
             }
         });
 

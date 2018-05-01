@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class Bid extends SugarRecord<Bid>{
     private Currency currency;
-    private float price;
-    private Date deadLine;
+    private int price;
+    private int deadLine;
 
     public Currency getCurrency() {
         return currency;
@@ -17,19 +17,19 @@ public class Bid extends SugarRecord<Bid>{
         this.currency = currency;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Date getDeadLine() {
+    public int getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(Date deadLine) {
+    public void setDeadLine(int deadLine) {
         this.deadLine = deadLine;
     }
 }

@@ -31,9 +31,6 @@
             android:name=".ui.about.AboutActivity"
             android:label="@string/title_activity_about" />
         <activity
-            android:name=".ui.menu.Menu"
-            android:label="@string/title_activity_menu" />
-        <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
@@ -46,7 +43,7 @@
         <activity
             android:name=".ui.details.CryptoDetailsActivity"
             android:label="@string/title_activity_crypto_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
