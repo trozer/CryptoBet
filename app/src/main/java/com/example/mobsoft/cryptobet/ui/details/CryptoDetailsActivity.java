@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -93,7 +95,6 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
 
                 Date date = calDate.getTime();
                 int time = (int)(date.getTime()/1000);
-
 
                 Log.i("a", Integer.toString((int)(date.getTime()/1000)) + " test");
             }
@@ -181,5 +182,26 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
 
     public void setMinute(Integer minute) {
         this.minute = minute;
+    }
+
+    public void showUserSelectDateTime()
+    {
+        // Get TextView object which is used to show user pick date and time.
+        TextView textView = (TextView)findViewById(R.id.textViewShowDateTime);
+
+        StringBuffer strBuffer = new StringBuffer();
+        strBuffer.append("");
+        strBuffer.append(this.year);
+        strBuffer.append("-");
+        strBuffer.append(this.month+1);
+        strBuffer.append("-");
+        strBuffer.append(this.day);
+        strBuffer.append(" ");
+        strBuffer.append(this.hour);
+        strBuffer.append(":");
+        strBuffer.append(this.minute);
+
+        textView.setText(strBuffer.toString());
+        textView.setTextSize(16);
     }
 }

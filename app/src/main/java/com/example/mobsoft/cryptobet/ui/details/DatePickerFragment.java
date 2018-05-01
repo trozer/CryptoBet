@@ -124,6 +124,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         cryptoDetailsActivity.setYear(year);
         cryptoDetailsActivity.setMonth(month);
         cryptoDetailsActivity.setDay(dayOfMonth);
+        cryptoDetailsActivity.showUserSelectDateTime();
     }
 
     /**

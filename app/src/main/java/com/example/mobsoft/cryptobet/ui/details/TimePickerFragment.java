@@ -123,10 +123,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Log.i("a", Integer.toString(hourOfDay));
         cryptoDetailsActivity.setHour(hourOfDay);
         cryptoDetailsActivity.setMinute(minute);
-
+        cryptoDetailsActivity.showUserSelectDateTime();
     }
 
     /**
