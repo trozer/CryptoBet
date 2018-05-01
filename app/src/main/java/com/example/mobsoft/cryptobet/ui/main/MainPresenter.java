@@ -78,14 +78,20 @@ public class MainPresenter extends Presenter<MainScreen> {
         for(Currency currency : currencyList){
             if(cryptoDBSource.getBidBySpecificCurrency(currency) != null){
                 Bid bid = cryptoDBSource.getBidBySpecificCurrency(currency);
-                if(currency.getLastUpdated() < bid.getDeadLine()){
+                if(currency.getLastUpdated() > bid.getDeadLine()){
                     int score = (int)(Double.valueOf(bid.getTimeMultiplier()) *
                             Double.valueOf(bid.getPrice()) / Double.valueOf(Math.abs(bid.getPrice() - currency.getPriceUsd())));
                     addScore += score;
+                    cryptoDBSource.deleteBid(bid);
                 }
             }
             screen.updateScore(addScore);
+            screen.updateBetText(getBetNum());
         }
+    }
+
+    private int getBetNum(){
+        return cryptoDBSource.getAllBids().size();
     }
 
 
@@ -98,8 +104,8 @@ public class MainPresenter extends Presenter<MainScreen> {
             }
         } else {
             if (screen != null) {
-                screen.showCryptoCurrencies(event.getCryptos());
                 evaluateBets(event.getCryptos());
+                screen.showCryptoCurrencies(event.getCryptos());
             }
         }
     }

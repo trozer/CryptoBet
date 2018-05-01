@@ -118,6 +118,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
         mainPresenter.refreshCurrencies(0,100,"USD");
     }
 
+
     @Override
     public void showCryptoCurrencies(List<Currency> currencies) {
         if(swipeRefreshLayoutCryptos != null){
@@ -171,7 +172,14 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     }
 
     @Override
-    public void updateScore(int addScore) {
+    public void updateBetText(int betNum){
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.setBetText(betNum);
+    }
 
+    @Override
+    public void updateScore(int addScore) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.addScore(addScore);
     }
 }

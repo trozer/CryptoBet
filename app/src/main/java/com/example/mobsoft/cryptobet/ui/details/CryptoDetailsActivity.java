@@ -164,11 +164,6 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         super.onStop();
     }
 
-    @Override
-    public void showBid() {
-
-    }
-
     public void showTimePickerDialog(View v) {
         TimePickerFragment newFragment = new TimePickerFragment();
         newFragment.setArgs(this);
