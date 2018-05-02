@@ -1,5 +1,6 @@
 package com.example.mobsoft.cryptobet.mock;
 
+import com.example.mobsoft.cryptobet.network.CryptoCurrenciesInfoApi;
 import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
@@ -22,7 +23,7 @@ public class MockNetworkModule {
 
     @Provides
     @Singleton
-    public MockCryptoCurrenciesInfoApi provideCryptosApi(Retrofit.Builder retrofitBuilder) {
+    public CryptoCurrenciesInfoApi provideCryptosApi(Retrofit.Builder retrofitBuilder) {
         return new MockCryptoCurrenciesInfoApi();
     }
 }
