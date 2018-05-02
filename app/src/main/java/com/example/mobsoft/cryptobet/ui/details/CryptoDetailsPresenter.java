@@ -72,7 +72,7 @@ public class CryptoDetailsPresenter extends Presenter<CryptoDetailsScreen> {
     }
 
     public boolean checkActivity(Currency currency){
-        List<Bid> bids = Bid.listAll(Bid.class);
+        List<Bid> bids = cryptoDBSource.getAllBids();
 
         if(cryptoDBSource.getBidBySpecificCurrency(currency) != null){
             return true;
