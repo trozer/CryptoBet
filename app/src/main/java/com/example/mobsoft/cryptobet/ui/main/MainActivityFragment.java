@@ -66,6 +66,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("mainActivityFragment", "oncreateview");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         etCrypto = (EditText) view.findViewById(R.id.etCrypto);
         etCrypto.setText(currency);
@@ -124,8 +125,10 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     public void onResume(){
         super.onResume();
         mainPresenter.refreshCurrencies(0,100,"USD");
+        Log.i("mainActivityFragment", "Setting screen name: MainActivityFragment onresume");
         mTracker.setScreenName("Image~MainActivityFragment");
         mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("resume").build());
+       // throw new RuntimeException("hiba");
     }
 
     @Override
@@ -190,6 +193,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
 
     @Override
     public void updateBetText(int betNum){
+        Log.i("mainActivityFragment", "Setting screen name: MainActivityFragment");
         mTracker.setScreenName("Image~MainActivityFragment");
         mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("updateBet").build());
         MainActivity mainActivity = (MainActivity) getActivity();
@@ -198,6 +202,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
 
     @Override
     public void updateScore(int addScore) {
+        Log.i("mainActivityFragment", "Setting screen name: MainActivityFragment");
         mTracker.setScreenName("Image~MainActivityFragment");
         mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("updateScore").build());
         MainActivity mainActivity = (MainActivity) getActivity();

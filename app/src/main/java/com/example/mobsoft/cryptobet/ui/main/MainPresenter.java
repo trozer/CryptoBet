@@ -91,9 +91,9 @@ public class MainPresenter extends Presenter<MainScreen> {
                     cryptoDBSource.deleteBid(bid);
                 }
             }
-            screen.updateScore(addScore);
-            screen.updateBetText(getBetNum());
         }
+        screen.updateScore(addScore);
+        screen.updateBetText(getBetNum());
     }
 
     private int getBetNum(){

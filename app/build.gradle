@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 27
@@ -71,4 +76,7 @@ dependencies {
     androidTestCompileOnly 'javax.annotation:jsr250-api:1.0'
 
     compile 'com.google.android.gms:play-services-analytics:10.2.4'
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {
+        transitive = true;
+    }
 }

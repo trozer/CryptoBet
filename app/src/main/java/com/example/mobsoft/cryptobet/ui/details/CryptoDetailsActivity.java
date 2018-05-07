@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.mobsoft.cryptobet.AnalyticsApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplicationComponent;
@@ -34,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
+
+import io.fabric.sdk.android.Fabric;
 
 public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDetailsScreen,
         TimePickerFragment.OnFragmentInteractionListener, DatePickerFragment.OnFragmentInteractionListener {
@@ -60,6 +63,7 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
         setContentView(R.layout.activity_crypto_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Fabric.with(this, new Crashlytics());
 
         CryptobetApplication.injector.inject(this);
 

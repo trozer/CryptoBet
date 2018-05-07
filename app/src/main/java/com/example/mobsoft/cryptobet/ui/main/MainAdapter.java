@@ -92,6 +92,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
+                    Log.i("mainActivityFragment", "onclick");
                     mTracker.setScreenName("Image~MainActivityFragment");
                     mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("resume").build());
                     Intent intent = new Intent(context, CryptoDetailsActivity.class);

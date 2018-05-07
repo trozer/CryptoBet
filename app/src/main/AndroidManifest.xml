@@ -38,6 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="15fc98b4dd06836a95b5ef29f20335ecf84a0307"
+            />
         <activity
             android:name=".ui.details.CryptoDetailsActivity"
             android:label="@string/title_activity_crypto_details"
