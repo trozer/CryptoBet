@@ -16,9 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mobsoft.cryptobet.AnalyticsApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.model.Currency;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,7 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     private List<Currency> allCurrencyList;
     private MainAdapter mainAdapter;
     private String currency = "";
+    private Tracker mTracker;
 
     public MainActivityFragment() {
         CryptobetApplication.injector.inject(this);
@@ -75,6 +79,10 @@ public class MainActivityFragment extends Fragment implements MainScreen{
         allCurrencyList = new ArrayList<>();
         mainAdapter = new MainAdapter(getContext(), currencyList);
         recyclerViewCryptos.setAdapter(mainAdapter);
+
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         mainAdapter.setMainActivityFragment(this);
 
         swipeRefreshLayoutCryptos = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayoutCryptos);
@@ -116,6 +124,8 @@ public class MainActivityFragment extends Fragment implements MainScreen{
     public void onResume(){
         super.onResume();
         mainPresenter.refreshCurrencies(0,100,"USD");
+        mTracker.setScreenName("Image~MainActivityFragment");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("resume").build());
     }
 
     @Override
@@ -126,6 +136,8 @@ public class MainActivityFragment extends Fragment implements MainScreen{
 
     @Override
     public void showCryptoCurrencies(List<Currency> currencies) {
+        mTracker.setScreenName("Image~MainActivityFragment");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("showCryptoCurrencies").build());
         if(swipeRefreshLayoutCryptos != null){
             swipeRefreshLayoutCryptos.setRefreshing(false);
         }
@@ -178,12 +190,16 @@ public class MainActivityFragment extends Fragment implements MainScreen{
 
     @Override
     public void updateBetText(int betNum){
+        mTracker.setScreenName("Image~MainActivityFragment");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("updateBet").build());
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.setBetText(betNum);
     }
 
     @Override
     public void updateScore(int addScore) {
+        mTracker.setScreenName("Image~MainActivityFragment");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("updateScore").build());
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.addScore(addScore);
     }

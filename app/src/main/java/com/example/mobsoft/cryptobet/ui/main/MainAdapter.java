@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mobsoft.cryptobet.AnalyticsApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.db.CryptoDBSource;
 import com.example.mobsoft.cryptobet.model.Bid;
 import com.example.mobsoft.cryptobet.model.Currency;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
     private List<Currency> currencyList;
     private List<Bid> bidList;
     private MainActivityFragment mainActivityFragment;
+    private Tracker mTracker;
 
     @Inject
     CryptoDBSource cryptoDBSource;
@@ -39,6 +43,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
 
     public void setMainActivityFragment(MainActivityFragment fragment){
         mainActivityFragment = fragment;
+        AnalyticsApplication application = (AnalyticsApplication) mainActivityFragment.getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @NonNull
@@ -86,6 +92,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
+                    mTracker.setScreenName("Image~MainActivityFragment");
+                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("resume").build());
                     Intent intent = new Intent(context, CryptoDetailsActivity.class);
                     intent.putExtra("Currency", currency);
                     mainActivityFragment.startActivity(intent);

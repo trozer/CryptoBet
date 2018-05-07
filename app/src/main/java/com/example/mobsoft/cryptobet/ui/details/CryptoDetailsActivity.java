@@ -21,10 +21,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mobsoft.cryptobet.AnalyticsApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplication;
 import com.example.mobsoft.cryptobet.CryptobetApplicationComponent;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.model.Currency;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.sql.Time;
 import java.util.Calendar;
@@ -49,6 +52,7 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
     private Integer hour = 1;
     private Integer minute = 1;
     private Currency currency;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,9 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
                 cryptoDetailsPresenter.saveBet(currency, getYear(),getMonth(),getDay(),getHour(),getMinute(), etPrice.getText().toString());
             }
         });
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
     }
 
@@ -207,6 +214,8 @@ public class CryptoDetailsActivity extends AppCompatActivity implements CryptoDe
     }
 
     public void setBetSelectState(int year, int month, int dayOfMonth, int hour, int minute, String price){
+        mTracker.setScreenName("Image~DetailsActivity");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("setBetSelectState").build());
         // Get TextView object which is used to show user pick date and time.
         TextView textView = (TextView)findViewById(R.id.textViewShowDateTime);
 

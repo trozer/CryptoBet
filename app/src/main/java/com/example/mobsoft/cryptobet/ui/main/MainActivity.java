@@ -15,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.mobsoft.cryptobet.AnalyticsApplication;
 import com.example.mobsoft.cryptobet.R;
 import com.example.mobsoft.cryptobet.ui.about.AboutActivity;
 import com.example.mobsoft.cryptobet.ui.details.CryptoDetailsActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView scoreText;
     private TextView betText;
     private SharedPreferences mPrefs;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24px);
+
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final MainActivity mainActivity = this;
@@ -71,10 +79,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putInt("score", stored_score + score).commit();
         scoreText.setText(Integer.toString(stored_score) + " p");
+
+        Log.i("mainActivity", "Setting screen name: MainActivity");
+        mTracker.setScreenName("Image~MainActivity");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("add").build());
     }
 
     public void setBetText(int betNum){
         betText.setText(Integer.toString(betNum) + " bet");
+        Log.i("mainActivity", "Setting screen name: MainActivity");
+        mTracker.setScreenName("Image~MainActivity");
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("set").build());
     }
 
     @Override
