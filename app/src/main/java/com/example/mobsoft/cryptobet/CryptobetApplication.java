@@ -13,7 +13,7 @@ public class CryptobetApplication extends SugarApp {
 
     @Override
     public void onCreate() {
-    //   if(false)
+       if(false)
             super.onCreate();
         injector =
                 DaggerCryptobetApplicationComponent.builder().
